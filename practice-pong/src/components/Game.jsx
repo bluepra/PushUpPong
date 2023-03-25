@@ -6,8 +6,10 @@ import Scoreboard from './Scoreboard';
 function Game() {
     const [ballPosition, setBallPosition] = useState({ x: 300, y: 200 });
     const [ballVelocity, setBallVelocity] = useState({ x: 5, y: 5 });
+
     const [player1Position, setPlayer1Position] = useState(150);
     const [player2Position, setPlayer2Position] = useState(150);
+
     const [player1Score, setPlayer1Score] = useState(0);
     const [player2Score, setPlayer2Score] = useState(0);
 
