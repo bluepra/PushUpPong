@@ -69,13 +69,13 @@ function Game() {
     const handleKeyDown = (e) => {
         // Move player paddles up or down on key press
         if (e.key === 'w') {
-            setPlayer1Position((prevPosition) => prevPosition - 10);
+            setPlayer1Position(player1Position - 20);
         } else if (e.key === 's') {
-            setPlayer1Position((prevPosition) => prevPosition + 10);
+            setPlayer1Position(player1Position + 20);
         } else if (e.key === 'ArrowUp') {
-            setPlayer2Position((prevPosition) => prevPosition - 10);
+            setPlayer2Position(player2Position - 20);
         } else if (e.key === 'ArrowDown') {
-            setPlayer2Position((prevPosition) => prevPosition + 10);
+            setPlayer2Position(player2Position + 20);
         }
     };
 
@@ -87,7 +87,7 @@ function Game() {
                 position: 'relative',
                 width: '600px',
                 height: '400px',
-                backgroundColor: 'black',
+                backgroundColor: 'blue',
             }}
         >
             <Ball x={ballPosition.x} y={ballPosition.y} />
