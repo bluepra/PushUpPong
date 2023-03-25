@@ -1,2 +1,0 @@
-# PushUpPong
-Frontend pong game
