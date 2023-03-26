@@ -1,12 +1,16 @@
-import Game from './components/Game';
-import UserCamera from './components/UserCamera';
+import { Routes, Route, Router } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import GamePage from './pages/GamePage';
 
 function App() {
-    return (
-        <>
-            <UserCamera></UserCamera>
-        </>
-    );
+  return (
+    <Router>
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/game" element={<GamePage />} />
+        </Routes>
+    </Router>
+  );
 }
 
 export default App;

@@ -92,7 +92,6 @@ function Game() {
                 }
             }
         }
-
     }, [ballPosition, player1Position, player2Position]);
 
     const handleKeyDown = (e) => {
@@ -114,7 +113,9 @@ function Game() {
         <div>
             <div style={{
                 display: 'flex',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
+                padding: '10px',
+                maxHeight: '20vh'
             }}>
                 <PlayerCamera marginLeft="40px"></PlayerCamera>
                 <Scoreboard player1Score={player1Score} player2Score={player2Score}></Scoreboard>

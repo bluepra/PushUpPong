@@ -1,11 +1,11 @@
 import React from 'react';
 
-function GamePage(props) {
+function WaitingPage(code) {
     return (
         <div>
-           <p>Game page</p> 
+            
         </div>
     );
 }
 
-export default GamePage;
+export default WaitingPage;

@@ -1,14 +1,12 @@
 import React from 'react';
-import './../styles/playerCamera.css'
 
 function PlayerCamera(marginLeft=0, marginRight=0) {
     return (
         <div style={{
             width: '20vw',
-            height: '20vh',
+            height: '18vh',
             backgroundColor: 'grey',
             borderRadius: '10px',
-            margin: '10px'
         }}>
         </div>
     );
