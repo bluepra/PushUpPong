@@ -9,7 +9,6 @@ import backgroundSound from './../music.mp3'
 import paddleCollisionSound from './../paddleCollision.wav'
 import goalSoundi from './../point_scored.wav'
 import wallSoundi from './../ball_against_walls_top_and_bottom.wav'
-import { paddle, table, ball } from '../constants.js';
 import { useContext } from 'react';
 import NoseYProportion from './contexts/NoseYProportion';
 
@@ -166,7 +165,7 @@ function Game(props) {
                     x: prevVelocity.x,
                     y: -prevVelocity.y,
                 }));
-                wallSound.play();
+                // wallSound.play();
             }
         } else if (ballPosition.y >= table.height - ball.diameter) {
             if (ballVelocity.y > 0) {
@@ -175,20 +174,20 @@ function Game(props) {
                     x: prevVelocity.x,
                     y: -prevVelocity.y,
                 }));
-                wallSound.play();
+                // wallSound.play();
             }
         }
 
         // Check for goals
         if (ballPosition.x <= -20) {
-            goalSound.play();
+            // goalSound.play();
             setPlayer2Score((prevScore) => prevScore + 1);
             playerScored('right');
             setBallPosition({ x: table.width / 2 + 10, y: 200 });
             setBallVelocity({ x: 5, y: 5 });
             return;
         } else if (ballPosition.x >= table.width) {
-            goalSound.play();
+            // goalSound.play();
             setPlayer1Score((prevScore) => prevScore + 1);
             playerScored('left');
             setBallPosition({ x: table.width / 2 + 10, y: 200 });
@@ -204,7 +203,7 @@ function Game(props) {
         ) {
          
             if (ballVelocity.x < 0){
-                paddleSound.play();
+                // paddleSound.play();
 
                 setBallVelocity((prevVelocity) => ({
 
@@ -221,7 +220,7 @@ function Game(props) {
                 console.log('behind paddle');
             } else {
 
-                paddleSound.play();
+                // paddleSound.play();
                 if (ballVelocity.x > 0){
 
                     setBallVelocity((prevVelocity) => ({
