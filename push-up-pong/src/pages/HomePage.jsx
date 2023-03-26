@@ -30,7 +30,7 @@ function HomePage() {
                 flexDirection: 'column',
                 height: '100vh',
                 position: 'relative',
-                top: '-70px',
+                // top: '-70px',
             }}
             className="homepage"
         >
@@ -48,6 +48,8 @@ function HomePage() {
                     display: 'flex',
                     justifyContent: 'center',
                     flexDirection: 'column',
+                    position: 'relative',
+                    top: '-70px',
                 }}
             >
                 <p style={{ textAlign: 'center' }}>Enter Code to Join:</p>
