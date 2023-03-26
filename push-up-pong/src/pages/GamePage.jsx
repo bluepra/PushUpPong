@@ -1,12 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import Game from '../components/Game';
+import UserCamera from '../components/UserCamera';
 
 function GamePage() {
     const navigate = useNavigate();
-
-    function handleButtonClick() {
-        navigate('/');
-    }
 
     return <Game></Game>;
 }
