@@ -5,8 +5,15 @@ import Scoreboard from './Scoreboard';
 import PlayerCamera from './PlayerCamera';
 import {paddle, table, ball} from '../constants.js';
 import io from 'socket.io-client';
+import backgroundSound from './../music.mp3'
+import paddleCollisionSound from './../paddleCollision.wav'
+import goalSoundi from './../point_scored.wav'
+import wallSoundi from './../ball_against_walls_top_and_bottom.wav'
 
 function Game(props) {
+
+
+
     const [ballPosition, setBallPosition] = useState({ x: (table.width - ball.diameter) / 2 + 10, y: (table.height - ball.diameter) / 2});
     const [ballVelocity, setBallVelocity] = useState({ x: 5, y: 5 });
 
@@ -21,6 +28,16 @@ function Game(props) {
 
     const leftPaddleX = 30
     const rightPaddleX = table.width - paddle.width - 30
+
+    const background =  new Audio(backgroundSound);
+    background.volume = 0.1;
+    const paddleSound =  new Audio(paddleCollisionSound);
+    const wallSound = new Audio(wallSoundi);
+    const goalSound = new Audio(goalSoundi);
+
+    useEffect(()=>{
+        background.play();
+    }, []);
 
     // SOCKET STUFF -----------------------------------------------
     // let socket = null;
@@ -129,28 +146,34 @@ function Game(props) {
         // Check for collisions with walls
         if (ballPosition.y <= 0) {
             if (ballVelocity.y < 0) {
+
                 setBallVelocity((prevVelocity) => ({
                     x: prevVelocity.x,
                     y: -prevVelocity.y,
                 }));
+                wallSound.play();
             }
         } else if (ballPosition.y >= table.height - ball.diameter){
             if (ballVelocity.y > 0) {
+
                 setBallVelocity((prevVelocity) => ({
                     x: prevVelocity.x,
                     y: -prevVelocity.y,
                 }));
+                wallSound.play();
             }
         }
 
         // Check for goals
         if (ballPosition.x <= -20) {
+            goalSound.play();
             setPlayer2Score((prevScore) => prevScore + 1);
             playerScored('right');
             setBallPosition({ x: table.width / 2 + 10, y: 200 });
             setBallVelocity({ x: 5, y: 5 });
             return;
         } else if (ballPosition.x >= table.width) {
+            goalSound.play();
             setPlayer1Score((prevScore) => prevScore + 1);
             playerScored('left');
             setBallPosition({ x: table.width / 2 + 10, y: 200 });
@@ -164,8 +187,11 @@ function Game(props) {
             ballPosition.y >= player1Position &&
             ballPosition.y <= player1Position + paddle.height
         ) {
+            
             if (ballVelocity.x < 0){
+                paddleSound.play();
                 setBallVelocity((prevVelocity) => ({
+
                     x: -prevVelocity.x, //* 1.05,
                     y: prevVelocity.y //* 1.05 // (ballPosition.y - (player1Position + 40)) / 10,
     
@@ -179,6 +205,7 @@ function Game(props) {
             if (ballPosition.x > rightPaddleX + paddle.width) {
                 console.log('behind paddle')
             } else {
+                paddleSound.play();
                 if (ballVelocity.x > 0){
                     setBallVelocity((prevVelocity) => ({
                         x: -prevVelocity.x,

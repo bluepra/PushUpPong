@@ -41,7 +41,6 @@ function HomePage() {
 
 
     return (
-        // <button onClick={handleButtonClick}>Create Game</button>
         <div
             style={{
                 display: 'flex',
@@ -49,14 +48,16 @@ function HomePage() {
                 alignItems: 'center',
                 flexDirection: 'column',
                 height: '100vh',
-            }}
+                position: 'relative',
+                top: '-70px',
+            }} className='homepage'
         >
-            <h1>Push Up Pong</h1>
+            <h1 className='title'>Push Up Pong</h1>
             <div>
-                <button onClick={handleButtonClick} className='button'>Create Game</button>
+                <button onClick={handleButtonClick} className='button'>CREATE GAME</button>
             </div>
             <div>
-                <p>OR</p>
+                <p className='or'>OR</p>
             </div>
             <div
                 style={{
@@ -65,7 +66,7 @@ function HomePage() {
                     flexDirection: 'column',
                 }}
             >
-                <p style={{ textAlign: 'center' }}>Enter Code to Join</p>
+                <p style={{ textAlign: 'center' }}>Enter Code to Join:</p>
                 <div
                     style={{
                         display: 'flex',
@@ -75,7 +76,7 @@ function HomePage() {
                 >
                     <form onSubmit={handleSubmit} className="form">
                         <input type="text" ref={inputRef} />
-                        <button type="submit">Join</button>
+                        <button type="submit">JOIN</button>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 import {React, useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import io from 'socket.io-client';
+import './../WaitingRoom.css'
+
 
 function Dummy(props) {
     const { roomId } = useParams();
@@ -46,9 +48,9 @@ function Dummy(props) {
       }, []);
 
     return (
-        <div>
+        <div className='waitingDiv'>
             <h1>Waiting For Other Players...</h1>
-            <p>Room ID: {roomId}</p>
+            <p><b>Room ID:</b> {roomId}</p>
         </div>
     );
 }
