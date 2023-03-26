@@ -23,7 +23,7 @@ function HomePage() {
     const navigate = useNavigate();
 
     function handleButtonClick() {
-        navigate('/game');
+        navigate('/waiting');
     }
 
     function generateRandomString() {
