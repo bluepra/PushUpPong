@@ -18,26 +18,27 @@
 // export default HomePage;
 
 import { useNavigate } from 'react-router-dom';
+import {useRef} from 'react'
+
 
 function HomePage() {
+    const inputRef = useRef(null);
+    
     const navigate = useNavigate();
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        navigate(`/waiting/${inputRef.current.value}`)
+    }
 
     function handleButtonClick() {
         navigate('/waiting');
     }
 
-    function generateRandomString() {
-        let result = '';
-        const characters =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        for (let i = 0; i < 6; i++) {
-            result += characters.charAt(
-                Math.floor(Math.random() * charactersLength)
-            );
-        }
-        return result;
+    function handleJoinClick(){
+        navigate('/waiting/' + document.getElementById('code').innerHTML)
     }
+
 
     return (
         // <button onClick={handleButtonClick}>Create Game</button>
@@ -72,8 +73,10 @@ function HomePage() {
                         alignItems: 'center',
                     }}
                 >
-                    <input type="text" placeholder="Code" id="code" />
-                    <button>Join</button>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" ref={inputRef} />
+                        <button type="submit">Join</button>
+                    </form>
                 </div>
             </div>
         </div>
