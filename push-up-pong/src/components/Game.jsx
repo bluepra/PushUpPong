@@ -62,7 +62,7 @@ function Game(props) {
     // }, []);
 
     useEffect(() => {
-        const winScore = 1;
+        const winScore = 3;
         if (player1Score === winScore) {
             // background.pause();
             alert('You Win!');
@@ -165,7 +165,9 @@ function Game(props) {
             player2Position +
             AI_SPEED * (ballPosition.y - player2Position) -
             50;
-        setPlayer2Position(new_AI_position);
+        if (new_AI_position > 0) {
+            setPlayer2Position(new_AI_position);
+        }
     }, [ballPosition]);
 
     useEffect(() => {
@@ -185,16 +187,17 @@ function Game(props) {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <PlayerCamera marginLeft="40px"></PlayerCamera>
+                    <PlayerCamera marginLeft="40px" ai={false}></PlayerCamera>
 
                     <Scoreboard
                         player1Score={player1Score}
                         player2Score={player2Score}
                     ></Scoreboard>
-                    {/* <PlayerCamera
+                    <PlayerCamera
                         marginRight="40px"
                         display={false}
-                    ></PlayerCamera> */}
+                        ai={true}
+                    ></PlayerCamera>
                 </div>
             </div>
             <div

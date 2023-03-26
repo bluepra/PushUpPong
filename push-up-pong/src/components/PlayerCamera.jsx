@@ -1,7 +1,8 @@
 import React from 'react';
 import UserCamera from './UserCamera';
 
-function PlayerCamera() {
+function PlayerCamera(props) {
+    const { ai } = props;
     return (
         <div
             style={{
@@ -11,9 +12,23 @@ function PlayerCamera() {
                 borderRadius: '10px',
                 margin: '10px',
                 position: 'relative',
+                overflow: 'hidden',
             }}
         >
-            <UserCamera></UserCamera>
+            {ai ? (
+                <img
+                    src={
+                        'http://www.the-madhatters.co.uk/wp-content/uploads/sites/552/2017/07/Mad-Hatter-Character.png'
+                    }
+                    alt={'Mad Hatter'}
+                    style={{
+                        position: 'relative',
+                        width: '100%',
+                    }}
+                ></img>
+            ) : (
+                <UserCamera></UserCamera>
+            )}
         </div>
     );
 }
