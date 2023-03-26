@@ -19,7 +19,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import {useRef} from 'react'
-
+import './../App.css'
 
 function HomePage() {
     const inputRef = useRef(null);
@@ -53,7 +53,7 @@ function HomePage() {
         >
             <h1>Push Up Pong</h1>
             <div>
-                <button onClick={handleButtonClick}>Create Game</button>
+                <button onClick={handleButtonClick} className='button'>Create Game</button>
             </div>
             <div>
                 <p>OR</p>
@@ -73,7 +73,7 @@ function HomePage() {
                         alignItems: 'center',
                     }}
                 >
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="form">
                         <input type="text" ref={inputRef} />
                         <button type="submit">Join</button>
                     </form>

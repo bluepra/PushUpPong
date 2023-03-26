@@ -1,0 +1,33 @@
+.button {
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    transition: .5s ease-in;
+}
+
+.button:hover{
+    background-color: rgb(224, 224, 224);
+    cursor: pointer;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.form > * {
+    border: 1px solid rgb(224, 224, 224);
+    padding: 10px;
+    outline: none;
+    flex-grow: 1;
+    transition: .5s ease-in;
+    /* border-radius: 10px; */
+}
+
+.form button:hover {
+    background-color: rgb(224, 224, 224);
+    cursor: pointer;
+}
