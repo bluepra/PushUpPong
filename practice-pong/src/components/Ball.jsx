@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 
 function Ball({ x, y }) {
     return (
@@ -10,7 +10,7 @@ function Ball({ x, y }) {
                 width: '20px',
                 height: '20px',
                 borderRadius: '50%',
-                backgroundColor: 'white',
+                backgroundColor: 'black',
             }}
         ></div>
     );
