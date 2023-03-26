@@ -19,6 +19,7 @@ function Game() {
     const [player1Position, setPlayer1Position] = useState(
         (table.height - paddle.height) / 2
     );
+
     const [player2Position, setPlayer2Position] = useState(
         (table.height - paddle.height) / 2
     );
@@ -28,6 +29,8 @@ function Game() {
 
     const leftPaddleX = 30;
     const rightPaddleX = table.width - paddle.width - 30;
+
+    const AI_SPEED = 0.7;
 
     useEffect(() => {
         // Move the ball every 16ms (60fps)
@@ -104,26 +107,38 @@ function Game() {
     }, [ballPosition, player1Position, player2Position]);
 
     useEffect(() => {
+        const new_AI_position =
+            player2Position +
+            AI_SPEED * (ballPosition.y - player2Position) -
+            50;
+        setPlayer2Position(new_AI_position);
+    }, [ballPosition]);
+
+    useEffect(() => {
         console.log('Changed y-nose proportion to', noseYProp);
-        setPlayer1Position(Math.round(noseYProp * table.height));
+        const new_pos = Math.round(noseYProp * table.height);
+        if (new_pos >= 0 && new_pos <= table.height - paddle.height) {
+            setPlayer1Position(new_pos);
+        }
     }, [noseYProp]);
 
     const handleKeyDown = (e) => {
         // Move player paddles up or down on key press
-        console.log(window.innerHeight * 0.2);
-        if (e.key === 'w') {
-            setPlayer1Position(Math.max(player1Position - 20, 0));
-        } else if (e.key === 's') {
-            setPlayer1Position(
-                Math.min(player1Position + 20, table.height - paddle.height)
-            );
-        } else if (e.key === 'ArrowUp') {
-            setPlayer2Position(Math.max(player2Position - 20, 0));
-        } else if (e.key === 'ArrowDown') {
-            setPlayer2Position(
-                Math.min(player2Position + 20, table.height - paddle.height)
-            );
-        }
+        console.log('A key was pressed');
+        // console.log(window.innerHeight * 0.2);
+        // if (e.key === 'w') {
+        //     setPlayer1Position(Math.max(player1Position - 20, 0));
+        // } else if (e.key === 's') {
+        //     setPlayer1Position(
+        //         Math.min(player1Position + 20, table.height - paddle.height)
+        //     );
+        // } else if (e.key === 'ArrowUp') {
+        //     setPlayer2Position(Math.max(player2Position - 20, 0));
+        // } else if (e.key === 'ArrowDown') {
+        //     setPlayer2Position(
+        //         Math.min(player2Position + 20, table.height - paddle.height)
+        //     );
+        // }
     };
 
     return (

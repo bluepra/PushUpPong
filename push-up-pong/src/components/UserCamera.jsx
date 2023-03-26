@@ -70,62 +70,19 @@ function UserCamera(props) {
                 if (detections.length > 0) {
                     // Get the nose coordinate
                     const nose = detections[0].landmarks.getNose()[3];
-                    // const x = nose.x / videoRef.current.videoWidth;
+
                     const y = nose.y / videoRef.current.videoHeight;
                     // console.log(y);
-                    // const x = nose.x;
+
                     // const y = nose.y;
 
                     // Update the nose coordinate state
                     setNoseYCoord(y);
                     setNoseYProp(y);
                 }
-
-                // const resizedDetections = faceapi.resizeResults(
-                //     detections,
-                //     displaySize
-                // );
-
-                // canvasRef &&
-                //     canvasRef.current &&
-                //     canvasRef.current
-                //         .getContext('2d')
-                //         .clearRect(0, 0, videoWidth, videoHeight);
-                // canvasRef &&
-                //     canvasRef.current &&
-                //     faceapi.draw.drawDetections(
-                //         canvasRef.current,
-                //         resizedDetections
-                //     );
-                // canvasRef &&
-                //     canvasRef.current &&
-                //     faceapi.draw.drawFaceLandmarks(
-                //         canvasRef.current,
-                //         resizedDetections
-                //     );
-
-                // canvasRef &&
-                //     canvasRef.current &&
-                //     faceapi.draw.drawFaceExpressions(
-                //         canvasRef.current,
-                //         resizedDetections
-                //     );
             }
         }, 100);
     };
-
-    React.useEffect(() => {
-        if (noseYCoord) {
-            // console.log('Nose Y coordinate:', noseYCoord);
-            // Perform any other operations on nose coordinate here
-        }
-    }, [noseYCoord]);
-
-    // const closeWebcam = () => {
-    //     videoRef.current.pause();
-    //     videoRef.current.srcObject.getTracks()[0].stop();
-    //     // setCaptureVideo(false);
-    // };
 
     return (
         <div>
