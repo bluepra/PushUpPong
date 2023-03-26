@@ -6,7 +6,7 @@ function Scoreboard({player1Score, player2Score}) {
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                fontSize: '20px',
+                fontSize: '50px',
                 padding: '20px',
                 color: 'black',
                 fontWeight: 'bold',

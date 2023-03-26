@@ -3,28 +3,21 @@ import Paddle from './Paddle';
 import Ball from './Ball';
 import Scoreboard from './Scoreboard';
 import PlayerCamera from './PlayerCamera';
+import {paddle, table, ball} from '../constants.js';
 
 function Game() {
-    const [ballPosition, setBallPosition] = useState({ x: 300, y: 200 });
+    const [ballPosition, setBallPosition] = useState({ x: (table.width - ball.diameter) / 2 + 10, y: (table.height - ball.diameter) / 2});
     const [ballVelocity, setBallVelocity] = useState({ x: 5, y: 5 });
 
-    const [player1Position, setPlayer1Position] = useState(150);
-    const [player2Position, setPlayer2Position] = useState(150);
+    const [player1Position, setPlayer1Position] = useState((table.height - paddle.height) / 2);
+    const [player2Position, setPlayer2Position] = useState((table.height - paddle.height) / 2);
 
     const [player1Score, setPlayer1Score] = useState(0);
     const [player2Score, setPlayer2Score] = useState(0);
 
 
-    const paddle = {
-        width: 20,
-        height: 120
-    }
-    
-    const table = {
-        width: window.innerWidth,
-        height: window.innerHeight * 0.8
-    }
-
+    const leftPaddleX = 30
+    const rightPaddleX = table.width - paddle.width - 30
 
     useEffect(() => {
         // Move the ball every 16ms (60fps)
@@ -41,32 +34,20 @@ function Game() {
 
     useEffect(() => {
         // Check for collisions with walls
-        if (ballPosition.y <= 0 || ballPosition.y >= table.height - 20) {
-            setBallVelocity((prevVelocity) => ({
-                x: prevVelocity.x,
-                y: -prevVelocity.y,
-            }));
-        }
-
-        // Check for collisions with paddles
-        if (
-            ballPosition.x <= 35 &&
-            ballPosition.y >= player1Position &&
-            ballPosition.y <= player1Position + 80
-        ) {
-            setBallVelocity((prevVelocity) => ({
-                x: -prevVelocity.x,
-                y: (ballPosition.y - (player1Position + 40)) / 10,
-            }));
-        } else if (
-            ballPosition.x >= table.width - 55 &&
-            ballPosition.y >= player2Position &&
-            ballPosition.y <= player2Position + 80
-        ) {
-            setBallVelocity((prevVelocity) => ({
-                x: -prevVelocity.x,
-                y: (ballPosition.y - (player2Position + 40)) / 10,
-            }));
+        if (ballPosition.y <= 0) {
+            if (ballVelocity.y < 0) {
+                setBallVelocity((prevVelocity) => ({
+                    x: prevVelocity.x,
+                    y: -prevVelocity.y,
+                }));
+            }
+        } else if (ballPosition.y >= table.height - ball.diameter){
+            if (ballVelocity.y > 0) {
+                setBallVelocity((prevVelocity) => ({
+                    x: prevVelocity.x,
+                    y: -prevVelocity.y,
+                }));
+            }
         }
 
         // Check for goals
@@ -74,11 +55,44 @@ function Game() {
             setPlayer2Score((prevScore) => prevScore + 1);
             setBallPosition({ x: table.width / 2 + 10, y: 200 });
             setBallVelocity({ x: 5, y: 5 });
+            return;
         } else if (ballPosition.x >= table.width) {
             setPlayer1Score((prevScore) => prevScore + 1);
-            setBallPosition({ x: 300, y: 200 });
+            setBallPosition({ x: table.width / 2 + 10, y: 200 });
             setBallVelocity({ x: 5, y: 5 });
+            return;
         }
+
+        // Check for collisions with paddles
+        if (
+            ballPosition.x <= leftPaddleX + paddle.width &&
+            ballPosition.y >= player1Position &&
+            ballPosition.y <= player1Position + paddle.height
+        ) {
+            if (ballVelocity.x < 0){
+                setBallVelocity((prevVelocity) => ({
+                    x: -prevVelocity.x, //* 1.05,
+                    y: prevVelocity.y //* 1.05 // (ballPosition.y - (player1Position + 40)) / 10,
+    
+                }));
+            }
+        } else if (
+            ballPosition.x + ball.diameter >= rightPaddleX &&
+            ballPosition.y >= player2Position &&
+            ballPosition.y <= player2Position + paddle.height
+        ) {
+            if (ballPosition.x > rightPaddleX + paddle.width) {
+                console.log('behind paddle')
+            } else {
+                if (ballVelocity.x > 0){
+                    setBallVelocity((prevVelocity) => ({
+                        x: -prevVelocity.x,
+                        y: prevVelocity.y,
+                    }));
+                }
+            }
+        }
+
     }, [ballPosition, player1Position, player2Position]);
 
     const handleKeyDown = (e) => {
@@ -102,9 +116,9 @@ function Game() {
                 display: 'flex',
                 justifyContent: 'space-between'
             }}>
-                <PlayerCamera></PlayerCamera>
+                <PlayerCamera marginLeft="40px"></PlayerCamera>
                 <Scoreboard player1Score={player1Score} player2Score={player2Score}></Scoreboard>
-                <PlayerCamera></PlayerCamera>
+                <PlayerCamera marginRight="40px"></PlayerCamera>
             </div>
         </div>
         <div style={{
@@ -116,7 +130,7 @@ function Game() {
                 onKeyDown={handleKeyDown}
                 tabIndex="0"
                 style={{
-                    // border: '1px solid black',
+                    // border: '1px solid red',
                     position: 'relative',
                     width: table.width,
                     height: table.height,
@@ -126,8 +140,8 @@ function Game() {
                 }}
             >
                 <Ball x={ballPosition.x} y={ballPosition.y} />
-                <Paddle x={20} y={player1Position} width={paddle.width} height={paddle.height} />
-                <Paddle x={table.width - 40} y={player2Position} width={paddle.width} height={paddle.height}/>
+                <Paddle x={leftPaddleX} y={player1Position} width={paddle.width} height={paddle.height} />
+                <Paddle x={rightPaddleX} y={player2Position} width={paddle.width} height={paddle.height}/>
             </div>
         </div>
         </>

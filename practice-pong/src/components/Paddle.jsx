@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 
 function Paddle({ x, y, height, width }) {
+
     return (
         <div
             style={{
@@ -10,7 +11,7 @@ function Paddle({ x, y, height, width }) {
                 width: width,
                 height: height,
                 backgroundColor: 'black',
-                // borderRadius: '10px'
+                borderRadius: '10px'
             }}
         ></div>
     );
