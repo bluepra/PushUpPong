@@ -57,9 +57,9 @@ function Game(props) {
     const wallSound = new Audio(wallSoundi);
     const goalSound = new Audio(goalSoundi);
 
-    // useEffect(() => {
-    //     background.play();
-    // }, []);
+    useEffect(() => {
+        background.play();
+    }, []);
 
     useEffect(() => {
         const winScore = 3;
