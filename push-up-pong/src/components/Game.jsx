@@ -2,9 +2,10 @@ import { React, useState, useEffect } from 'react';
 import Paddle from './Paddle';
 import Ball from './Ball';
 import Scoreboard from './Scoreboard';
-import UserCamera from './UserCamera';
 import PlayerCamera from './PlayerCamera';
 import { paddle, table, ball } from '../constants.js';
+import { useContext } from 'react';
+import NoseYProportion from './contexts/NoseYProportion';
 
 function Game() {
     const [ballPosition, setBallPosition] = useState({
@@ -12,6 +13,8 @@ function Game() {
         y: (table.height - ball.diameter) / 2,
     });
     const [ballVelocity, setBallVelocity] = useState({ x: 5, y: 5 });
+
+    const [noseYProp, setNoseYProp] = useContext(NoseYProportion);
 
     const [player1Position, setPlayer1Position] = useState(
         (table.height - paddle.height) / 2
@@ -100,6 +103,11 @@ function Game() {
         }
     }, [ballPosition, player1Position, player2Position]);
 
+    useEffect(() => {
+        console.log('Changed y-nose proportion to', noseYProp);
+        setPlayer1Position(Math.round(noseYProp * table.height));
+    }, [noseYProp]);
+
     const handleKeyDown = (e) => {
         // Move player paddles up or down on key press
         console.log(window.innerHeight * 0.2);
@@ -128,6 +136,7 @@ function Game() {
                     }}
                 >
                     <PlayerCamera marginLeft="40px"></PlayerCamera>
+
                     <Scoreboard
                         player1Score={player1Score}
                         player2Score={player2Score}

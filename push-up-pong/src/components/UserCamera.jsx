@@ -1,9 +1,13 @@
 import * as faceapi from 'face-api.js';
 import React from 'react';
+import { useContext } from 'react';
+import NoseYProportion from './contexts/NoseYProportion';
 
 function UserCamera(props) {
     const [modelsLoaded, setModelsLoaded] = React.useState(false);
     // const [captureVideo, setCaptureVideo] = React.useState(false);
+
+    const [noseYProp, setNoseYProp] = useContext(NoseYProportion);
 
     const [noseYCoord, setNoseYCoord] = React.useState(null);
 
@@ -74,6 +78,7 @@ function UserCamera(props) {
 
                     // Update the nose coordinate state
                     setNoseYCoord(y);
+                    setNoseYProp(y);
                 }
 
                 // const resizedDetections = faceapi.resizeResults(
@@ -111,7 +116,7 @@ function UserCamera(props) {
 
     React.useEffect(() => {
         if (noseYCoord) {
-            console.log('Nose Y coordinate:', noseYCoord);
+            // console.log('Nose Y coordinate:', noseYCoord);
             // Perform any other operations on nose coordinate here
         }
     }, [noseYCoord]);
