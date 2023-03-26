@@ -71,12 +71,20 @@ function UserCamera(props) {
                     // Get the nose coordinate
                     const nose = detections[0].landmarks.getNose()[3];
 
-                    const y = nose.y / videoRef.current.videoHeight;
+                    const actualHeight = videoRef.current.videoHeight;
+
+                    let y = nose.y / actualHeight;
                     // console.log(y);
 
                     // const y = nose.y;
 
                     // Update the nose coordinate state
+                    if (y <= 0.15) {
+                        y = 0;
+                    } else if (y >= 0.9) {
+                        y = 1;
+                    }
+
                     setNoseYCoord(y);
                     setNoseYProp(y);
                 }
@@ -109,7 +117,7 @@ function UserCamera(props) {
                             style={{ position: 'absolute' }}
                         />
                     </div>
-                    <p>{'Nose y coord:' + noseYCoord}</p>
+                    {/* <p>{'Nose y coord:' + noseYCoord}</p> */}
                 </div>
             ) : (
                 <div>loading...</div>

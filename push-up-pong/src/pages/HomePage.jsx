@@ -1,25 +1,25 @@
 import { useNavigate } from 'react-router-dom';
-import {useRef} from 'react'
-import './../App.css'
+import { useRef } from 'react';
+import './../App.css';
 
 function HomePage() {
     const inputRef = useRef(null);
-    
+
     const navigate = useNavigate();
 
     function handleSubmit(event) {
         event.preventDefault();
-        navigate(`/waiting/${inputRef.current.value}`)
+        alert('Room Feature not fully implemented');
+        // navigate(`/waiting/${inputRef.current.value}`);
     }
 
     function handleButtonClick() {
         navigate('/game');
     }
 
-    function handleJoinClick(){
-        navigate('/waiting/' + document.getElementById('code').innerHTML)
+    function handleJoinClick() {
+        navigate('/waiting/' + document.getElementById('code').innerHTML);
     }
-
 
     return (
         <div
@@ -31,14 +31,17 @@ function HomePage() {
                 height: '100vh',
                 position: 'relative',
                 top: '-70px',
-            }} className='homepage'
+            }}
+            className="homepage"
         >
-            <h1 className='title'>Push Up Pong</h1>
+            <h1 className="title">Push Up Pong</h1>
             <div>
-                <button onClick={handleButtonClick} className='button'>CREATE GAME</button>
+                <button onClick={handleButtonClick} className="button">
+                    START GAME
+                </button>
             </div>
             <div>
-                <p className='or'>OR</p>
+                <p className="or">OR</p>
             </div>
             <div
                 style={{

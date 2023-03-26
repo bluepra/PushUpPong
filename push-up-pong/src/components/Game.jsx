@@ -5,6 +5,7 @@ import Scoreboard from './Scoreboard';
 import PlayerCamera from './PlayerCamera';
 import { paddle, table, ball } from '../constants.js';
 // import io from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
 import backgroundSound from './../music.mp3';
 import paddleCollisionSound from './../paddleCollision.wav';
 import goalSoundi from './../point_scored.wav';
@@ -13,12 +14,21 @@ import { useContext } from 'react';
 import NoseYProportion from './contexts/NoseYProportion';
 
 function Game(props) {
+    function flipCoin() {
+        return Math.random() > 0.5;
+    }
+
+    const navigate = useNavigate();
+
     const [ballPosition, setBallPosition] = useState({
         x: (table.width - ball.diameter) / 2 + 10,
         y: (table.height - ball.diameter) / 2,
     });
 
-    const [ballVelocity, setBallVelocity] = useState({ x: 5, y: 5 });
+    const [ballVelocity, setBallVelocity] = useState({
+        x: flipCoin() ? -5 : 5,
+        y: flipCoin() ? -5 : 5,
+    });
 
     const [noseYProp, setNoseYProp] = useContext(NoseYProportion);
 
@@ -33,119 +43,38 @@ function Game(props) {
     const [player1Score, setPlayer1Score] = useState(0);
     const [player2Score, setPlayer2Score] = useState(0);
 
-    const paddleId = props.paddleId;
-    const roomId = props.roomId;
+    // const paddleId = props.paddleId;
+    // const roomId = props.roomId;
 
     const leftPaddleX = 30;
     const rightPaddleX = table.width - paddle.width - 30;
 
-    const AI_SPEED = 0.7;
+    const AI_SPEED = 0.5;
 
     const background = new Audio(backgroundSound);
-    background.volume = 0.1;
+    background.volume = 0.4;
     const paddleSound = new Audio(paddleCollisionSound);
     const wallSound = new Audio(wallSoundi);
     const goalSound = new Audio(goalSoundi);
 
-    useEffect(() => {
-        background.play();
-    }, []);
-
-    // SOCKET STUFF -----------------------------------------------
-    // let socket = null;
-    // useEffect(() =>{
-    //     socket = io('https://pushup-pong.herokuapp.com/');
-    //     socket.on('paddle_move', function(data) {
-    //         var dy = data.dy;
-    //         console.log(data);
-    //         updatePaddle(dy); // This function should update the position of the opponent's paddle
-    //     });
-
-    // }, []);
-
-    // function movePaddle(dy) {
-    //     socket.emit('paddle_move', {dy: dy, room: roomId});
-    //     console.log(dy)
-    // }
-
-    // function updatePaddle(dy) {
-    //     if (paddleId === 'left'){
-    //         player2Position = dy;
-    //     } else if(paddleId === 'right'){
-    //         player1Position = dy;
-    //     }
-    // }
-    // const socketRef = useRef();
-
     // useEffect(() => {
-    //     socketRef.current = io('https://pushup-pong.herokuapp.com/%27');
-    //     socketRef.current.on('paddle_move', (data) => {
-    //         const dy = data.dy;
-    //         console.log(data);
-    //         updatePaddle(dy);
-    //     });
-    //     socketRef.current.on('score_changed', function (newScores) {
-    //         updateScores(newScores); // This function should update the scores displayed on the screen
-    //     });
-    //     socketRef.current.on('ball_position_changed', function (data) {
-    //         updateBallPosition(data.position); // This function should update the ball's position on the screen
-    //         updateBallVelocity(data.velocity); // This function should update the ball's velocity
-    //     });
-
-    //     // Cleanup function to disconnect the socket when the component is unmounted
-    //     //   return () => {
-    //     //     if (socketRef.current) {
-    //     //       socketRef.current.disconnect();
-    //     //     }
-    //     //   };
+    //     background.play();
     // }, []);
 
-    // function movePaddle(dy) {
-    //     if (socketRef.current) {
-    //         socketRef.current.emit('paddle_move', { dy: dy, room: roomId });
-    //         console.log(dy);
-    //     }
-    // }
+    useEffect(() => {
+        const winScore = 1;
+        if (player1Score === winScore) {
+            // background.pause();
+            alert('You Win!');
 
-    // function updatePaddle(dy) {
-    //     if (paddleId === 'left') {
-    //         console.log(paddleId);
-    //         player2Position = dy;
-    //     } else if (paddleId === 'right') {
-    //         console.log(paddleId);
-    //         player1Position = dy;
-    //     }
-    // }
+            navigate('/');
+        } else if (player2Score === winScore) {
+            // background.pause();
+            alert('The AI Wins!');
 
-    // function playerScored(scoringPlayer) {
-    //     socketRef.current.emit('score_update', {
-    //         scoringPlayer: scoringPlayer,
-    //         room: roomId,
-    //     });
-    // }
-    // function updateScores(newScores) {
-    //     const [left, right] = newScores;
-    //     setPlayer1Score(left);
-    //     setPlayer2Score(right);
-    //     console.log(left + ' : ' + right);
-    // }
-
-    // function updateBallPosition(pos) {
-    //     setBallPosition(pos);
-    // }
-
-    // function updateBallVelocity(vel) {
-    //     setBallVelocity(vel);
-    // }
-
-    // function sendBallUpdate(ball) {
-    //     socketRef.current.emit('ball_update', {
-    //         room: roomId,
-    //         position: ball.position,
-    //         velocity: ball.velocity,
-    //     });
-    // }
-    // END SOCKET STUFF ---------------------------------------------
+            navigate('/');
+        }
+    }, [player1Score, player2Score]);
 
     useEffect(() => {
         // Move the ball every 16ms (60fps)
@@ -168,7 +97,7 @@ function Game(props) {
                     x: prevVelocity.x,
                     y: -prevVelocity.y,
                 }));
-                // wallSound.play();
+                wallSound.play();
             }
         } else if (ballPosition.y >= table.height - ball.diameter) {
             if (ballVelocity.y > 0) {
@@ -176,20 +105,20 @@ function Game(props) {
                     x: prevVelocity.x,
                     y: -prevVelocity.y,
                 }));
-                // wallSound.play();
+                wallSound.play();
             }
         }
 
         // Check for goals
         if (ballPosition.x <= -20) {
-            // goalSound.play();
+            goalSound.play();
             setPlayer2Score((prevScore) => prevScore + 1);
             // playerScored('right');
             setBallPosition({ x: table.width / 2 + 10, y: 200 });
             setBallVelocity({ x: 5, y: 5 });
             return;
         } else if (ballPosition.x >= table.width) {
-            // goalSound.play();
+            goalSound.play();
             setPlayer1Score((prevScore) => prevScore + 1);
             // playerScored('left');
             setBallPosition({ x: table.width / 2 + 10, y: 200 });
@@ -204,11 +133,11 @@ function Game(props) {
             ballPosition.y <= player1Position + paddle.height
         ) {
             if (ballVelocity.x < 0) {
-                // paddleSound.play();
+                paddleSound.play();
 
                 setBallVelocity((prevVelocity) => ({
-                    x: -prevVelocity.x, //* 1.05,
-                    y: prevVelocity.y, //* 1.05 // (ballPosition.y - (player1Position + 40)) / 10,
+                    x: -prevVelocity.x * 1.15,
+                    y: prevVelocity.y * 1.15, // (ballPosition.y - (player1Position + 40)) / 10,
                 }));
             }
         } else if (
@@ -219,11 +148,11 @@ function Game(props) {
             if (ballPosition.x > rightPaddleX + paddle.width) {
                 console.log('behind paddle');
             } else {
-                // paddleSound.play();
+                paddleSound.play();
                 if (ballVelocity.x > 0) {
                     setBallVelocity((prevVelocity) => ({
-                        x: -prevVelocity.x,
-                        y: prevVelocity.y,
+                        x: -prevVelocity.x * 1.15,
+                        y: prevVelocity.y * 1.15,
                     }));
                 }
             }
@@ -246,53 +175,6 @@ function Game(props) {
             setPlayer1Position(new_pos);
         }
     }, [noseYProp]);
-
-    const handleKeyDown = (e) => {
-        // Move player paddles up or down on key press
-        // <<<<<<< HEAD
-        //         console.log(window.innerHeight * 0.2)
-        //         // if (e.key === 'w') {
-        //         //     setPlayer1Position(Math.max(player1Position - 20, 0));
-        //         // } else if (e.key === 's') {
-        //         //     setPlayer1Position(Math.min(player1Position + 20, table.height - paddle.height))
-        //         // } else if (e.key === 'ArrowUp') {
-        //         //     setPlayer2Position(Math.max(player2Position - 20, 0));
-        //         // } else if (e.key === 'ArrowDown') {
-        //         //     setPlayer2Position(Math.min(player2Position + 20, table.height - paddle.height))
-        //         // }
-        //         if (paddleId === "left"){
-        //             if (e.key === 'ArrowUp') {
-        //                 setPlayer1Position(Math.max(player1Position - 20, 0));
-        //             } else if (e.key === 'ArrowDown') {
-        //                 setPlayer1Position(Math.min(player1Position + 20, table.height - paddle.height))
-        //             }
-        //             movePaddle(player1Position);
-        //         }
-        //         if (paddleId === "right"){
-        //             if (e.key === 'ArrowUp') {
-        //                 setPlayer2Position(Math.max(player2Position - 20, 0));
-        //             } else if (e.key === 'ArrowDown') {
-        //                 setPlayer2Position(Math.min(player2Position + 20, table.height - paddle.height))
-        //             }
-        //             movePaddle(player2Position);
-        //         }
-        // =======
-        console.log('A key was pressed');
-        // console.log(window.innerHeight * 0.2);
-        // if (e.key === 'w') {
-        //     setPlayer1Position(Math.max(player1Position - 20, 0));
-        // } else if (e.key === 's') {
-        //     setPlayer1Position(
-        //         Math.min(player1Position + 20, table.height - paddle.height)
-        //     );
-        // } else if (e.key === 'ArrowUp') {
-        //     setPlayer2Position(Math.max(player2Position - 20, 0));
-        // } else if (e.key === 'ArrowDown') {
-        //     setPlayer2Position(
-        //         Math.min(player2Position + 20, table.height - paddle.height)
-        //     );
-        // }
-    };
 
     return (
         <>
@@ -323,7 +205,6 @@ function Game(props) {
                 }}
             >
                 <div
-                    onKeyDown={handleKeyDown}
                     tabIndex="0"
                     style={{
                         // border: '1px solid red',
