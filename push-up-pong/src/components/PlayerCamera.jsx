@@ -1,6 +1,7 @@
 import React from 'react';
+import UserCamera from './UserCamera';
 
-function PlayerCamera(marginLeft = 0, marginRight = 0) {
+function PlayerCamera() {
     return (
         <div
             style={{
@@ -9,8 +10,11 @@ function PlayerCamera(marginLeft = 0, marginRight = 0) {
                 backgroundColor: 'grey',
                 borderRadius: '10px',
                 margin: '10px',
+                position: 'relative',
             }}
-        ></div>
+        >
+            <UserCamera></UserCamera>
+        </div>
     );
 }
 

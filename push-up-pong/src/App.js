@@ -2,18 +2,21 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import GamePage from './pages/GamePage';
 import WaitingPage from './pages/WaitingPage';
-import Dummy from './pages/Dummy';
+import NoseYProportion from './components/contexts/NoseYProportion';
+import { useState } from 'react';
 
 function App() {
+    const [noseYProp, setNoseYProp] = useState(0.5);
 
     return (
         <Router>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/waiting" element={<WaitingPage />} />
-                <Route exact path="/waiting/:roomId" element={<Dummy/>} />
-                <Route exact path="/game/:roomId/:paddleId" element={<GamePage />} />
-            </Routes>
+            <NoseYProportion.Provider value={[noseYProp, setNoseYProp]}>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/waiting" element={<WaitingPage />} />
+                    <Route path="/game" element={<GamePage />} />
+                </Routes>
+            </NoseYProportion.Provider>
         </Router>
     );
 }
