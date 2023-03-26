@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import io from 'socket.io-client';
-
+// import io from 'socket.io-client';
 
 function WaitingPage(props) {
-
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         const code = generateRandomString();
-        navigate(`/waiting/${generateRandomString()}`)
-    }, [])
+        navigate(`/waiting/${generateRandomString()}`);
+    }, []);
 
     function generateRandomString() {
         let result = '';
@@ -25,10 +23,7 @@ function WaitingPage(props) {
         return result;
     }
 
-    return (
-        <>
-        </>
-    );
+    return <></>;
 }
 
 export default WaitingPage;
