@@ -1,9 +1,10 @@
-import Game from "./components/Game";
+import Game from './components/Game';
+import UserCamera from './components/UserCamera';
 
 function App() {
     return (
         <>
-            <Game></Game>
+            <UserCamera></UserCamera>
         </>
     );
 }
