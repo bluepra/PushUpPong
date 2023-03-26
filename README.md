@@ -1,13 +1,14 @@
 # PushUpPong
 
 ### How to download and setup to play
-1. Clone the repo: ```git clone https://github.com/bluepra/PushUpPong```
-2. Go to repo folder in terminal
-3. Switch to branch ```mitch``` by doing ```git checkout mitch```
-4. Type in ```npm i``` to get all dependencies
-5. Host it locally: ```npm start```
-6. Open a browser and go to ```localhost:3000```
-7. Enjoy
+1. Clone the repo: ```git clone https://github.com/b1uepra/PushUpPong```
+2. Go to repo folder in terminal: ```cd ./PushUpPong```
+3. Switch to branch: ```git checkout mitch```
+4. Switch to the right directory: ```cd ./push-up-pong```
+5. Download all dependencise: ```npm i```
+6. Host it locally: ```npm start```
+7. Open a browser and go to ```localhost:3000```
+8. Enjoy!
 
 ### How it works
 * We use the face-api.js library to utilize ML models to detct your face
