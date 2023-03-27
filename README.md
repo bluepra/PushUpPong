@@ -4,11 +4,10 @@
 
 1. Clone the repo: `git clone https://github.com/b1uepra/PushUpPong`
 2. Go to repo folder in terminal: `cd ./PushUpPong`
-3. Switch to branch: `git checkout mitch`
-4. Download all dependencise: `npm i`
-5. Host it locally: `npm start`
-6. Open a browser and go to `localhost:3000`
-7. Enjoy!
+3. Download all dependencise: `npm i`
+4. Host it locally: `npm start`
+5. Open a browser and go to `localhost:3000`
+6. Enjoy!
 
 ### How it works
 
