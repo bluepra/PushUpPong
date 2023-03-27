@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cf4e6f75.css",
+    "main.js": "/static/js/main.c31f8e5d.js",
+    "static/js/787.b90a4b1d.chunk.js": "/static/js/787.b90a4b1d.chunk.js",
+    "static/media/music.mp3": "/static/media/music.01862617e4a33c146372.mp3",
+    "static/media/point_scored.wav": "/static/media/point_scored.3e2b8a36c21e21afa1a5.wav",
+    "static/media/ball_against_walls_top_and_bottom.wav": "/static/media/ball_against_walls_top_and_bottom.63f0b12414f605e55c2b.wav",
+    "static/media/paddleCollision.wav": "/static/media/paddleCollision.03ee3acc87b2c1bf83e9.wav",
+    "static/media/Bromo-PKWvP.otf": "/static/media/Bromo-PKWvP.0c5996557b8f6b6c0077.otf",
+    "index.html": "/index.html",
+    "main.cf4e6f75.css.map": "/static/css/main.cf4e6f75.css.map",
+    "main.c31f8e5d.js.map": "/static/js/main.c31f8e5d.js.map",
+    "787.b90a4b1d.chunk.js.map": "/static/js/787.b90a4b1d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf4e6f75.css",
+    "static/js/main.c31f8e5d.js"
+  ]
+}
