@@ -1,4 +1,4 @@
-# PushUpPong
+# Push Up Pong
 
 ### How to download and setup to play
 
